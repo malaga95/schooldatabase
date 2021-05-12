@@ -1,6 +1,6 @@
 class Tutor: #Nauczyciel ma przedmioty oraz klasy ktore uczeszczaja na dany przedmiot.
-             #{Tadeusz nowak : {2a:[biologia]} #jak odwolac się do metody wewnatrz klasy poza nia ?
-             # Amadeusz Powrot :[]}
+             #{Tadeusz nowak : {biologia: [2a,2b]} 
+             # Amadeusz Powrot :{chemia: [2a, 2b]}}
     def __init__(self, name, subject, group):
         self.name = name
         self.subject = subject
@@ -8,10 +8,10 @@ class Tutor: #Nauczyciel ma przedmioty oraz klasy ktore uczeszczaja na dany prze
     def data(self):
         #Dictonary that contains data of tutor
         data = {}
-        new_dict = {}
-        subjects = []
-        subjects.append(subject)
-        new_dict = {self.group : subjects}
+        subject = {}
+        classes = []
+        classes.append(group)
+        new_dict = {self.subject : classes}
         data = {self.name : new_dict}
         return data
 
@@ -59,9 +59,7 @@ class Keeper:
 students_in_class = {}   #{3a:[tadek,andrzej,mateusz]}
 students = []
 keepers = []
-tutors = []
-sample_dict = {}
-list_of_students = []
+subjects = []
 probing = {}
 roles = ('Wychowawca', 'Nauczyciel', 'Uczen','wychowawca', 'nauczyciel', 
     'uczen', 'koniec', 'Koniec')   
@@ -70,13 +68,14 @@ while True:
     if role == "Nauczyciel" or role == 'nauczyciel':
         name = input('Podaj swoje imie i nazwisko :\n')
         subject = input('jakiego przedmiotu nauczasz ?\n')
-        students_group = input('jakiej klasy uczysz tego przedmiotu? \n')
-        personal_data = Tutor(name, subject, students_group)
+        group = input('jakiej klasy uczysz tego przedmiotu? \n')
+        personal_data = Tutor(name, subject, group)
         print_data = personal_data.data()
-        if students_group in print_data:
-            subject.append(subject)
-        tutors.append(print_data)
-        print(tutors)
+        print(print_data)
+
+        '''sample_dict[students_group] = subject
+        tutors[name] = sample_dict'''
+        
     if role == "Uczen" or role == 'uczen':
         name = input('Podaj swoje imie i nazwisko :\n')
         group = input('Podaj numer swojej klasy\n')
