@@ -1,6 +1,7 @@
 class Tutor: #Nauczyciel ma przedmioty oraz klasy ktore uczeszczaja na dany przedmiot.
              #{Tadeusz nowak : {biologia: [2a,2b]} 
-             # Amadeusz Powrot :{chemia: [2a, 2b]}}
+             # Amadeusz Powrot :{chemia: [2a, 2b]}} #lita slownikow ? Jak stworzyc slownik z kluczami, mam problem z obiektem tutor,
+             #czysci pamiec nie zapisuje klas w lista podczas uzywania metody na obiekcie.
     def __init__(self, name, subject, group):
         self.name = name
         self.subject = subject
@@ -12,7 +13,7 @@ class Tutor: #Nauczyciel ma przedmioty oraz klasy ktore uczeszczaja na dany prze
         classes = []
         classes.append(group)
         new_dict = {self.subject : classes}
-        data = {self.name : new_dict}
+        data[self.name] = new_dict
         return data
 
 
@@ -49,7 +50,8 @@ class Keeper:
     def data(self):
         data={}
         klasy=[]
-        data[self.name] = [self.group]
+        klasy.append(self.group)
+        data[self.name] = klasy
         return data
 #w jaki sposob zapisywac wprowadzone dane w "kodzie"
 #w jaki sposob wyciagac dane ? np drukowac klasy uczniow
@@ -59,20 +61,29 @@ class Keeper:
 students_in_class = {}   #{3a:[tadek,andrzej,mateusz]}
 students = []
 keepers = []
-subjects = []
+tutors = []
+groups = []
+classes = []
 probing = {}
 roles = ('Wychowawca', 'Nauczyciel', 'Uczen','wychowawca', 'nauczyciel', 
     'uczen', 'koniec', 'Koniec')   
+
 while True:
     role = input('kim jestes ?')
     if role == "Nauczyciel" or role == 'nauczyciel':
         name = input('Podaj swoje imie i nazwisko :\n')
         subject = input('jakiego przedmiotu nauczasz ?\n')
         group = input('jakiej klasy uczysz tego przedmiotu? \n')
-        personal_data = Tutor(name, subject, group)
+        groups.append(group)
+        while group:
+            group = input('Czy uczysz tego przedmiotu jakiejs jeszcze klasy ?')
+            groups.append(group)
+        personal_data = Tutor(name, subject, groups)
         print_data = personal_data.data()
-        print(print_data)
 
+        """tutors.append (print_data)
+        """
+        print(print_data)
         '''sample_dict[students_group] = subject
         tutors[name] = sample_dict'''
         
@@ -95,10 +106,27 @@ while True:
         
          #dodaje studentow do listy w klasie
         #lista studentów potrzebny if
+   
     if role == "Wychowawca" or role == 'wychowawca':
         name = input('Podaj swoje imie i nazwisko :\n')
+        '''while name:
+            if name in probing:
+                classes.append(group)
+                probing[name] = classes'''
         group = input('Podaj numer klasy, ktorej jestes opiekunem\n')
+        
         personal_data = Keeper(name, group)
         print_data = personal_data.data()
-        print(print_data)
+        keepers.append(print_data)
+        print(keepers)
+        
 
+
+        '''if name in probing:                     #czegos tu brakuje, zarowno w wychowawcy jak i w uczniu, ze nie moge operowac metodami na obiekcie, jakis slownik ? Struktura danych !!!!
+                classes.append(group)
+                probing[name] = classes
+            else:
+                classes = []
+                classes.append(group)
+                probing[name] = classes'''
+    
