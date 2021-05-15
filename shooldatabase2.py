@@ -11,7 +11,7 @@ class Tutor: #Nauczyciel ma przedmioty oraz klasy ktore uczeszczaja na dany prze
         data = {}
         subject = {}
         classes = []
-        classes.append(group)
+        classes.append(self.group)
         new_dict = {self.subject : classes}
         data[self.name] = new_dict
         return data
@@ -30,7 +30,7 @@ class Student:
         data={}
         data = {self.name : self.group}
         return data
-    '''def klasa_przypis(self):
+    def klasa_przypis(self):
         if group in students_in_class:
             students.append(name)
             students_in_class[group] = students
@@ -38,7 +38,7 @@ class Student:
             students = []
             students.append(name)
             students_in_class[group] = students
-        return students_in_class'''
+        return students_in_class
 
 class Keeper:
     #Struktura
@@ -61,7 +61,11 @@ class Keeper:
 students_in_class = {}   #{3a:[tadek,andrzej,mateusz]}
 students = []
 keepers = []
-tutors = []
+tutors = {}
+tutors.update({"a":1})
+print(tutors)
+tutors.update({"b":2})
+print(tutors)
 groups = []
 classes = []
 probing = {}
@@ -92,16 +96,16 @@ while True:
         group = input('Podaj numer swojej klasy\n')
         personal_data = Student(name, group) #wywoluje klase
         print_data = personal_data.data() #wykonuje metode na obiekcie
-        '''klasa = personal_data.klasa_przypis()'''
-        if group in students_in_class: #nie dziala mi w metodzie, prawdopodobnie z powodu pustego atrybutu
+        klasa = personal_data.klasa_przypis()
+       ''' if group in students_in_class: #nie dziala mi w metodzie, prawdopodobnie z powodu pustego atrybutu
             students.append(name)
             students_in_class[group] = students
         else:
             students = []
             students.append(name)
-            students_in_class[group] = students
+            students_in_class[group] = students'''
         #students_in_class = {group: students}
-        print(students_in_class)
+        print(klasa)
         #klasa1 = personal_data.klasa_przypis()
         
          #dodaje studentow do listy w klasie
@@ -130,3 +134,5 @@ while True:
                 classes.append(group)
                 probing[name] = classes'''
     
+#metoda update aktualizowac slowniki dzieki czemu bede w stanie przechowywac dane w slowniku, nie w liscie slownikow
+#Na nauczycielu poprawic funkjconowanie metody na obiekcie zmienna group
