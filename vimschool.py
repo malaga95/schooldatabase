@@ -6,19 +6,17 @@ class School:
     def __init__(self):
         self.keeper = keeper
         self.students = {}
-    
+        self.klasa = []
+
     def data(self):
         group_of_students.append(students)
         return group_of_students
-
-    def klasa(self):
-        class_no = input('Type your class')
-        keeper = input('who is keeper of your class')
 
     def add_student(self, student):
         if student.class_no not in self.students:
             self.students[student.class_no] = []
         self.students[student.class_no].append(student)
+    
 
 
 
@@ -30,18 +28,17 @@ class Tutor:
        self.classes = []
     
     def data(self):
-        list_of_class_per_subject.append(self.classes)
-        subjects = {self.subject: list_of_class_per_subject}
-        teacher = {self.name : subjects}   
-        return teacher
+       subjects = {self.subject : self.classes}
+       teacher = {self.name : subjects}   
+       return teacher
     
     def read(self):
-        self.name = input('Type your name')
-        self.subject = input('type your subject')
-        class_= input('type your class')
-        while class_:
-            self.classes.append(class_)
-            class_= input('type your class')
+       self.name = input('Type your name')
+       self.subject = input('type your subject')
+       class_= input('type your class')
+       while class_:
+           self.classes.append(class_)
+           class_= input('type your class')
 
 
 class Keeper:
@@ -50,7 +47,6 @@ class Keeper:
         self.classes = []
     
     def data(self): 
-        class_ = []
         keeper = {self.name : self.classes}
         return keeper
     
@@ -96,16 +92,16 @@ while True:
         person_data = Student(school)
         person_data.read()
         person_processing = person_data.data()
-        print(person_processing)
+        print(school.students)
    
     if role == "Wychowawca" or role == "wychowawca":
-        person_data = Keeper(school)
+        person_data = Keeper()
         person_data.read()
         person_processing = person_data.data()
         print(person_processing)
     
     if role == "Nauczyciel" or role == "nauczyciel":
-        tutor_data = Tutor(school)
+        tutor_data = Tutor()
         tutor_data.read()
         tutor_processing = tutor_data.data()
         print(tutor_processing)
