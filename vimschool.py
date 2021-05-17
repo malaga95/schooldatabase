@@ -73,6 +73,12 @@ class Student:
     def data(self): 
         list_of_class.append(self.class_no)
         return list_of_class
+    
+    def __str__(self):
+        return f'imie ucznia : {self.name}'
+
+    def __repr__(self):
+        return f'imie ucznia : {self.name}'
         
 klasa = []
 list_of_class_per_subject = []
@@ -85,6 +91,7 @@ keeper = {}           # {name : [list_of class]}
 list_of_students = {} # {2a : [students_in_class]}
 roles = ('Wychowawca', 'wychowawca', 'Nauczyciel', 'nauczyciel', 'uczen', 'Uczen', 'koniec', 'Koniec')
 school = School()
+
 while True:
     role = input('Who are You ?')
    
@@ -105,3 +112,19 @@ while True:
         tutor_data.read()
         tutor_processing = tutor_data.data()
         print(tutor_processing)
+    if role == 'stop':
+        break
+print(school.students)
+while True:
+    var = input('Type name')
+    if var in school.students:
+        print(school.students[var])
+    else:
+        print('nie ma takiego wpisu')
+    print(school.students)
+    for group,student_list in school.students.items():
+        print(group, student_list)
+        for student in student_list:
+            print(student.name)
+            if var == student.name:
+                print(group)
