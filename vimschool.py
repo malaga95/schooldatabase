@@ -1,12 +1,12 @@
-from os import name
 
 
 class School:
     
     def __init__(self):
-        self.keeper = keeper
+        self.keeper = {}
         self.students = {}
         self.klasa = []
+        self.tutor = {}
 
     def data(self):
         group_of_students.append(students)
@@ -17,7 +17,11 @@ class School:
             self.students[student.class_no] = []
         self.students[student.class_no].append(student)
     
-
+    def tutor_processing(self, tutor):
+        if tutor.name not in self.tutor:
+            self.tutor[tutor.name] = self.subjects
+        else:
+            self.tutor.update(self.subjects)
 
 
 class Tutor:
@@ -40,11 +44,17 @@ class Tutor:
            self.classes.append(class_)
            class_= input('type your class')
 
+    def __str__(self):
+        return f'{self.name}'
+
+    def __repr__(self):
+        return f'{self.name}'
 
 class Keeper:
-    def __init__(self):
+    def __init__(self, school):
         self.name = ''
         self.classes = []
+        self.school = school
     
     def data(self): 
         keeper = {self.name : self.classes}
@@ -75,10 +85,10 @@ class Student:
         return list_of_class
     
     def __str__(self):
-        return f'imie ucznia : {self.name}'
+        return f'{self.name}'
 
     def __repr__(self):
-        return f'imie ucznia : {self.name}'
+        return f'{self.name}'
         
 klasa = []
 list_of_class_per_subject = []
@@ -102,29 +112,32 @@ while True:
         print(school.students)
    
     if role == "Wychowawca" or role == "wychowawca":
-        person_data = Keeper()
+        person_data = Keeper(school)
         person_data.read()
         person_processing = person_data.data()
-        print(person_processing)
+        print(school.keeper) #
     
     if role == "Nauczyciel" or role == "nauczyciel":
         tutor_data = Tutor()
         tutor_data.read()
         tutor_processing = tutor_data.data()
-        print(tutor_processing)
+        #school.tutor_processing()
+        print(school.tutor_processing) 
     if role == 'stop':
         break
-print(school.students)
+
 while True:
-    var = input('Type name')
-    if var in school.students:
-        print(school.students[var])
+    var = input('Type name')   #wpisuje klucz na podstawie ktorego przeszukuje dane
+    if var in school.students: #sprawdzam slownik studentow w szkole
+        print(school.students[var])  #drukuje wartosc slownika dla klucza wpisanego
+    if var in school.keeper:
+        print(school.keeper[var])
     else:
         print('nie ma takiego wpisu')
-    print(school.students)
-    for group,student_list in school.students.items():
+    print(school.students)  #drukuje caly slownik students
+    for group,student_list in school.students.items():  #przeszukuje 
         print(group, student_list)
-        for student in student_list:
-            print(student.name)
+        for student in student_list:      #student w tym miejscu prezentuje kazda kolejna wartosc w petli for, nazywam ja w instrukcji
             if var == student.name:
                 print(group)
+    
