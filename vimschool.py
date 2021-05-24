@@ -1,5 +1,8 @@
 
 
+from os import name
+
+
 class School:
     
     def __init__(self):
@@ -18,10 +21,14 @@ class School:
         self.students[student.class_no].append(student)
     
     def tutor_processing(self, tutor):
-        if tutor.name not in self.tutor:
-            self.tutor[tutor.name] = self.subjects
-        else:
-            self.tutor.update(self.subjects)
+        self.tutor.update(tutor)
+        #if tutor.name not in self.tutor:
+
+        #    self.tutor[tutor.name] = self.subjects
+        #else:
+        #    self.tutor.update(self.subjects)
+    def keeper_proc(self, keeper):
+        self.keeper.update(keeper)
 
 
 class Tutor:
@@ -115,29 +122,62 @@ while True:
         person_data = Keeper(school)
         person_data.read()
         person_processing = person_data.data()
+        school.keeper_proc(person_processing)
         print(school.keeper) #
     
     if role == "Nauczyciel" or role == "nauczyciel":
         tutor_data = Tutor()
         tutor_data.read()
-        tutor_processing = tutor_data.data()
-        #school.tutor_processing()
-        print(school.tutor_processing) 
+        tutor_proc = tutor_data.data()
+        school.tutor_processing(tutor_proc)
+        print(school.tutor) 
     if role == 'stop':
         break
 
 while True:
     var = input('Type name')   #wpisuje klucz na podstawie ktorego przeszukuje dane
-    if var in school.students: #sprawdzam slownik studentow w szkole
-        print(school.students[var])  #drukuje wartosc slownika dla klucza wpisanego
+    #if var in school.students: #sprawdzam slownik studentow w szkole
+    #    print(school.students[var])  #drukuje wartosc slownika dla klucza wpisanego
+        #przyrownaj aby wyszukac wychowawce
     if var in school.keeper:
         print(school.keeper[var])
+    
     else:
         print('nie ma takiego wpisu')
-    print(school.students)  #drukuje caly slownik students
     for group,student_list in school.students.items():  #przeszukuje 
-        print(group, student_list)
         for student in student_list:      #student w tym miejscu prezentuje kazda kolejna wartosc w petli for, nazywam ja w instrukcji
-            if var == student.name:
-                print(group)
+            if var == student:
+                for keeper,grupa in school.keeper.items():
+                    if group == grupa:
+                        print(keeper)
+                print(list_of_students[var])
+    #for keeper,group in school.keeper.items():
+    #    for klasa in group:
+    #        if var == klasa.name:
+    #            print(klasa)
+    if var in school.tutor.keys():
+        for v,classes in school.tutor[var].items():
+            for grupa in classes:
+                for name,klasy in school.keeper.items():
+                    for klasa in klasy:
+                        if klasa == grupa:
+                            print(name)
+    #jeśli phrase to uczeń: wypisz wszystkie lekcje, które ma uczeń i nauczycieli, którzy je prowadzą
+    for group, student in school.students.items(): #przeszukuje liste studentów
+        if var in group:
+            print(group) #nazwa klasy do ktorej uczeszcza student
+        for name in student:
+            if var == name:
+                for name,grupa in school.keeper.items():
+                    for var in grupa:
+                        print(name) #tutaj powinienem wydrukowac imie wychowawcy dla klasy ?
+        for v,subjects in school.tutor.items(): #dziele sobie slownik na v - imie nauczyciela, subjects - slowniki z przedmiotami 
+            print(v,subjects)
+            for sub,grupa in subjects: 
+                if var in grupa:
+                    print(subjects) #tutaj powinien drukowac liste przedmiotow
+        
+   # for a,b
+   #  {name : [list_of class]}
+    #{Name : {Subject : [classes]}}
     
