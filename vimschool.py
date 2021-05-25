@@ -173,7 +173,7 @@ while True:
                         print(name) #tutaj powinienem wydrukowac imie wychowawcy dla klasy ?
         for v,subjects in school.tutor.items(): #dziele sobie slownik na v - imie nauczyciela, subjects - slowniki z przedmiotami 
             print(v,subjects)
-            for sub,grupa in subjects: 
+            for sub,grupa in subjects.items(): 
                 if var in grupa:
                     print(subjects) #tutaj powinien drukowac liste przedmiotow
         
